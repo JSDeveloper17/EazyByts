@@ -9,7 +9,7 @@ export const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="container nav-container">
-        <h1 className="nav-logo">CodePortfolio</h1>
+        <h1 className="nav-logo">EazyByts Portfolio</h1>
 
         <div
           className={`menu-toggle ${menuOpen ? "active" : ""}`}
