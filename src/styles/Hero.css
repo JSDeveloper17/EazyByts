@@ -1,0 +1,38 @@
+.hero {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, var(--primary-color), var(--light-bg));
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2rem;
+}
+
+.hero span {
+  color: var(--hover-color);
+
+}
+
+.hero p {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  background: var(--hover-color);
+  color: var(--primary-color);
+  border-radius: 4px;
+  font-weight: 600;
+  transition: transform var(--transition-speed);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}

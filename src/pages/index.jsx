@@ -1,0 +1,6 @@
+export {Home} from "./Home.jsx"
+export {Blogs} from "./Blogs.jsx"
+export {Login} from "./Login.jsx"
+export {Register} from "./Register.jsx"
+export {Projects} from "./Projects.jsx"
+export {PageNotFound} from "./PageNotFound.jsx"
