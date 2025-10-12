@@ -3,6 +3,7 @@ import { Blogs, Home, Login, PageNotFound, Projects, Register } from "../pages/i
 
 import { ProtectedRoute } from "./ProtectedRoute.jsx"
 import { DashBoard } from "../pages/dashboards/DashBoard.jsx"
+import { Contact } from "../components/Contact.jsx"
 
 
 
@@ -14,6 +15,7 @@ export const AllRoutes = () => {
         <Route path="/blogs" element={<Blogs/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/contact" element={<Contact/>}/>
         <Route path="/dashboard" 
                  element={  <ProtectedRoute>
                                 <DashBoard/>

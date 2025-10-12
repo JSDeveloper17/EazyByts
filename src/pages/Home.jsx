@@ -1,12 +1,11 @@
+import { Contact } from "../components/Contact.jsx"
 import { Hero } from "../components/Hero.jsx"
-import { Projects } from "./Projects.jsx"
-
 
 export const Home = () => {
   return (
     <>
       <Hero/>
-      <Projects/>
+      <Contact/>
     </>
   )
 }
