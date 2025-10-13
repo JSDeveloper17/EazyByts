@@ -1,7 +1,7 @@
 // src/services/blogService.js
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/blogs"; // adjust backend URL as needed
+const API_URL = "http://localhost:5000/api/blogs"; 
 
 export const getBlogs = async (token) => {
   return await axios.get(API_URL, {

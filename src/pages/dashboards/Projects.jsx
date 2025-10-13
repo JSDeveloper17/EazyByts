@@ -1,21 +1,21 @@
 
 import { useContext, useEffect, useState } from "react";
-import API from "../../services/api.js"; // Your axios instance
+import API from "../../services/api.js"; 
 import { AuthContext } from "../../context/AuthContext.jsx";
-import "./DashBoardProjects.css"; // Ensure this is imported or styles are applied
+import "./DashBoardProjects.css";
 
 export const Projects = () => {
   const { user } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true); // Added for loading state
+  const [loading, setLoading] = useState(true); 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [githubLink, setGithubLink] = useState("");
   const [liveLink, setLiveLink] = useState("");
-  const [technologies, setTechnologies] = useState(""); // Comma-separated string
-  const [image, setImage] = useState(null); // File
-  const [imagePreview, setImagePreview] = useState(""); // For preview
-  const [editingId, setEditingId] = useState(null); // For edit mode
+  const [technologies, setTechnologies] = useState(""); 
+  const [image, setImage] = useState(null); 
+  const [imagePreview, setImagePreview] = useState("");
+  const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -24,8 +24,7 @@ export const Projects = () => {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const response = await API.get("/projects"); // Change to "/projects" if your backend uses plural
-        // Assuming response.data is array or { projects: [] }; adjust if needed (e.g., response.data.data)
+        const response = await API.get("/projects"); 
         setProjects(response.data.projects || response.data);
         setError(""); // Clear error on success
       } catch (err) {
@@ -42,13 +41,13 @@ export const Projects = () => {
     fetchProjects();
   }, []);
 
-  // Handle form submit (add or edit)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
 
-    // Basic validation
+    
     if (!title || !description || !githubLink || !liveLink || !technologies || (!image && !editingId)) {
       setError("All fields are required.");
       return;
@@ -59,7 +58,7 @@ export const Projects = () => {
     formData.append("description", description);
     formData.append("githubLink", githubLink);
     formData.append("liveLink", liveLink);
-    formData.append("technologies", technologies); // Backend will handle splitting if needed
+    formData.append("technologies", technologies); 
     if (image) formData.append("image", image);
 
     try {
@@ -84,7 +83,7 @@ export const Projects = () => {
     }
   };
 
-  // Handle delete
+  
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
     try {
@@ -97,13 +96,13 @@ export const Projects = () => {
     }
   };
 
-  // Handle edit (load form with data)
+
   const handleEdit = (project) => {
     setTitle(project.title);
     setDescription(project.description);
     setGithubLink(project.githubLink);
     setLiveLink(project.liveLink);
-    // Parse technologies (stringified array from backend)
+    
     let techArray = project.technologies;
     if (typeof project.technologies === "string") {
       try {
@@ -114,10 +113,10 @@ export const Projects = () => {
     }
     setTechnologies(Array.isArray(techArray) ? techArray.join(", ") : "");
     setImagePreview(project.image);
-    setEditingId(project.id); // Use id from Postman
+    setEditingId(project.id); 
   };
 
-  // Reset form
+  
   const resetForm = () => {
     setTitle("");
     setDescription("");
@@ -129,7 +128,6 @@ export const Projects = () => {
     setEditingId(null);
   };
 
-  // Handle image change (preview)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -142,7 +140,7 @@ export const Projects = () => {
     <div className="projects-section container">
       <h2>Project Management</h2>
       
-      {/* Form with labels */}
+    
       <form onSubmit={handleSubmit} className="project-form">
         <label htmlFor="title">Title</label>
         <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter project title" required />

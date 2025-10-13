@@ -1,7 +1,7 @@
 .projects-section {
   padding: 20px;
   color: #fff;
-  background-color: #1a1b2e; /* Dark background to match screenshot */
+  background-color: #1a1b2e; 
 }
 
 .project-form {
@@ -19,7 +19,7 @@
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #aqua; /* Cyan to match title in screenshot */
+  color: aqua; 
 }
 
 .project-form input,
@@ -45,7 +45,7 @@
 }
 
 .btn-primary {
-  background: #00bcd4; /* Cyan button */
+  background: #00bcd4; 
   color: #fff;
   border: none;
   padding: 10px;

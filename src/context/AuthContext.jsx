@@ -1,6 +1,6 @@
 
 import { createContext, useEffect, useState } from "react";
-import API from "../services/api.js"; // Import the axios instance
+import API from "../services/api.js";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -8,7 +8,6 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Restore login from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
