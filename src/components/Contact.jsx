@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import API from '../services/api.js';
 import '../styles/Contact.css';
 
 export const Contact = () => {
@@ -33,36 +34,29 @@ export const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const clientErrors = validateForm();
-    if (Object.keys(clientErrors).length > 0) {
-      setErrors(clientErrors);
-      return;
-    }
+  e.preventDefault();
+  const clientErrors = validateForm();
+  if (Object.keys(clientErrors).length > 0) {
+    setErrors(clientErrors);
+    return;
+  }
 
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+  setIsSubmitting(true);
+  setSubmitStatus(null);
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  try {
+    const response = await API.post("/contact", formData); 
+    console.log("Response:", response.data);
 
-      if (!response.ok) {
-        throw new Error('Submission failed');
-      }
-
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-        console.log(error)
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    setSubmitStatus("success");
+    setFormData({ name: "", email: "", message: "" });
+  } catch (error) {
+    console.error(error);
+    setSubmitStatus("error");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <section className="contact-section">
