@@ -6,57 +6,54 @@ import '../styles/Contact.css';
 export const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     message: '',
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
+  const [submitStatus, setSubmitStatus] = useState(null); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error on change
     setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Invalid email format';
-    }
     if (!formData.message.trim()) newErrors.message = 'Message is required';
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  const clientErrors = validateForm();
-  if (Object.keys(clientErrors).length > 0) {
-    setErrors(clientErrors);
-    return;
-  }
+    e.preventDefault();
+    const clientErrors = validateForm();
+    if (Object.keys(clientErrors).length > 0) {
+      setErrors(clientErrors);
+      return;
+    }
 
-  setIsSubmitting(true);
-  setSubmitStatus(null);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
-  try {
-    const response = await API.post("/contact", formData); 
-    console.log("Response:", response.data);
+    try {
+      const response = await API.post("/contact", {
+        name: formData.name,
+        email: "securemebro@gmail.com", 
+        message: formData.message,
+      });
 
-    setSubmitStatus("success");
-    setFormData({ name: "", email: "", message: "" });
-  } catch (error) {
-    console.error(error);
-    setSubmitStatus("error");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      console.log("Response:", response.data);
+      setSubmitStatus("success");
+      setFormData({ name: "", message: "" });
+    } catch (error) {
+      console.error(error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="contact-section">
@@ -79,19 +76,9 @@ export const Contact = () => {
             />
             {errors.name && <span id="name-error" className="error-message">{errors.name}</span>}
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              aria-invalid={!!errors.email}
-              aria-describedby={errors.email ? 'email-error' : undefined}
-            />
-            {errors.email && <span id="email-error" className="error-message">{errors.email}</span>}
-          </div>
+
+          {/*  Removed Email Field Completely */}
+
           <div className="form-group">
             <label htmlFor="message">Message</label>
             <textarea
@@ -105,14 +92,19 @@ export const Contact = () => {
             />
             {errors.message && <span id="message-error" className="error-message">{errors.message}</span>}
           </div>
+
           <button type="submit" className="submit-button" disabled={isSubmitting}>
             {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
-          {submitStatus === 'success' && <p className="success-message">Message sent successfully!</p>}
-          {submitStatus === 'error' && <p className="error-message">Failed to send message. Please try again.</p>}
+
+          {submitStatus === 'success' && (
+            <p className="success-message">Message sent successfully!</p>
+          )}
+          {submitStatus === 'error' && (
+            <p className="error-message">Failed to send message. Please try again.</p>
+          )}
         </form>
       </div>
     </section>
   );
 };
-
